@@ -1,0 +1,838 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<!-- Hero Carousel Section -->
+<section class="hero">
+    <div class="hero-carousel">
+        <!-- Slide 1 -->
+        <div class="carousel-slide active">
+            <div class="slide-bg" style="background-image: url('static/images/10.jpg');"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Sustainable Solutions for<br><span class="highlight">Aquaculture & Agriculture</span></h1>
+                    <p class="hero-subtitle">Innovative technologies and services to improve productivity and sustainability</p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn btn-primary">Our Services</a>
+                        <a href="#products" class="btn btn-secondary">View Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2 -->
+        <div class="carousel-slide">
+            <div class="slide-bg" style="background-image: url('static/images/12.jpg');"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Novfeed Protein<br><span class="highlight">Sustainable Aquaculture Feed</span></h1>
+                    <p class="hero-subtitle">High-performance protein source with 70% crude protein content</p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'enquire' %}" class="btn btn-primary">Enquire Now</a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3 -->
+        <div class="carousel-slide">
+            <div class="slide-bg" style="background-image: url('static/images/8.jpg');"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">EcoVita<br><span class="highlight">Premium Soil Conditioner</span></h1>
+                    <p class="hero-subtitle">Organic N-P-K rich formula to boost crop yields and soil health</p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn btn-primary">Learn More</a>
+                        <a href="{% url 'enquire' %}" class="btn btn-primary">Enquire Now</a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carousel Controls -->
+        <div class="carousel-controls">
+            <button class="carousel-arrow prev-slide"><i class="fas fa-chevron-left"></i></button>
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0"></button>
+                <button class="indicator" data-slide="1"></button>
+                <button class="indicator" data-slide="2"></button>
+            </div>
+            <button class="carousel-arrow next-slide"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+    
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#ffffff" fill-opacity="1" d="M0,160L80,144C160,128,320,96,480,96C640,96,800,128,960,138.7C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+/* Hero Carousel Section Styling */
+.hero {
+    position: relative;
+    height: 80vh;
+    min-height: 500px;
+    overflow: hidden;
+    color: #fff;
+}
+
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.slide-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.65);
+    z-index: -1;
+    transition: transform 8s ease;
+}
+
+.carousel-slide.active .slide-bg {
+    transform: scale(1.05);
+}
+
+.hero-content {
+    padding: 100px 0;
+    max-width: 800px;
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.highlight {
+    color: #48bb78;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    font-weight: 300;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #3182ce;
+    color: #fff;
+    border: 2px solid #3182ce;
+}
+
+.btn-primary:hover {
+    background-color: #2b6cb0;
+    border-color: #2b6cb0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(49, 130, 206, 0.3);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Carousel Controls */
+.carousel-controls {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 5;
+}
+
+.carousel-arrow {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.carousel-arrow:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.carousel-indicators {
+    display: flex;
+    gap: 10px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+.hero-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 70vh;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+        max-width: 250px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const totalSlides = slides.length;
+    let slideInterval;
+    
+    // Start automatic slideshow
+    startSlideshow();
+    
+    // Next and Previous buttons
+    document.querySelector('.next-slide').addEventListener('click', () => {
+        goToSlide((currentSlide + 1) % totalSlides);
+        resetInterval();
+    });
+    
+    document.querySelector('.prev-slide').addEventListener('click', () => {
+        goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        resetInterval();
+    });
+    
+    // Indicator buttons
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            goToSlide(index);
+            resetInterval();
+        });
+    });
+    
+    // Go to specific slide
+    function goToSlide(slideIndex) {
+        // Remove active class from current slide and indicator
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+        
+        // Update current slide
+        currentSlide = slideIndex;
+        
+        // Add active class to new slide and indicator
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+    }
+    
+    // Start automatic slideshow
+    function startSlideshow() {
+        slideInterval = setInterval(() => {
+            goToSlide((currentSlide + 1) % totalSlides);
+        }, 5000); // Change slide every 5 seconds
+    }
+    
+    // Reset interval when manually changing slides
+    function resetInterval() {
+        clearInterval(slideInterval);
+        startSlideshow();
+    }
+});
+</script>
+<!-- Services Section -->
+<!-- Services Section -->
+<section id="services" class="services">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive support for aquaculture development</p>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Feasibility Studies Card -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon-wrapper bg-blue">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="service-title">Feasibility Studies</h3>
+                <p class="service-description">We perform feasibility study for the establishment of proposed fish farming aquaculture project.</p>
+            </div>
+            
+            <!-- Technology Transfer Card -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon-wrapper bg-green">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3 class="service-title">Technology Transfer</h3>
+                <p class="service-description">Novfeed through its global partnership and expertise transfer respective technology that maximize fish farmers production efficiency.</p>
+            </div>
+            
+            <!-- On-site Consulting Card -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-icon-wrapper bg-teal">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3 class="service-title">Consulting On-the-field</h3>
+                <p class="service-description">We provide on site consulting and routinely follow project operation and provide technical inspection. Novfeed expert conducts periodic visit to the fish farm, making sure that the project operate at its maximum efficiency.</p>
+            </div>
+            
+            <!-- Data-Driven Farming Card -->
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-icon-wrapper bg-purple">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3 class="service-title">Datafying fish Farmers</h3>
+                <p class="service-description">We collect farm data and use it to advise farmers on the best practices to improve their yield..</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Services Section Styling */
+.services {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 15px;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #4a5568;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.service-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.service-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.service-icon-wrapper i {
+    font-size: 32px;
+    color: #fff;
+}
+
+.bg-blue {
+    background: linear-gradient(135deg, #3490dc, #2779bd);
+}
+
+.bg-green {
+    background: linear-gradient(135deg, #38c172, #1f9d55);
+}
+
+.bg-teal {
+    background: linear-gradient(135deg, #4dc0b5, #38a89d);
+}
+
+.bg-purple {
+    background: linear-gradient(135deg, #9561e2, #794acf);
+}
+
+.service-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+
+.service-description {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.service-details {
+    font-size: 1rem;
+    color: #718096;
+    line-height: 1.6;
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-card {
+        margin-bottom: 20px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<!-- Products Section -->
+<!-- Products Section -->
+<section id="products" class="products-section">
+    <div class="products-wave-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#f8fafc" fill-opacity="1" d="M0,64L80,58.7C160,53,320,43,480,64C640,85,800,139,960,144C1120,149,1280,107,1360,85.3L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <h2 class="section-title">Our Products</h2>
+            <p class="section-subtitle">Sustainable solutions for modern agriculture and aquaculture</p>
+        </div>
+        
+        <!-- Product Tabs -->
+        <div class="product-tabs" data-aos="fade-up">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="Novfeed-protein">Novfeed Protein</button>
+                <button class="tab-btn" data-tab="ecovita">EcoVita</button>
+            </div>
+            
+            <div class="tab-content">
+                <!-- Novfeed Protein Tab -->
+                <div id="Novfeed-protein-tab" class="tab-pane active">
+                    <div class="product-showcase">
+                        <div class="product-image">
+                            <img src="{% static 'images/5.jpg' %}" alt="Novfeed Protein">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Novfeed Protein</h3>
+                            <p class="product-tagline">Sustainable Protein Source for Aquaculture</p>
+                            <p class="product-description">
+                                Novfeed protein is a family of natural, sustainable, and traceable feed ingredients for fish and livestock that is being developed to help meet the growing global demand for protein.
+                            </p>
+                            <p class="product-process">
+                                Produced via a natural fermentation, it is non-GMO, price competitive with existing sources of protein and produced to the highest quality standards.
+                            </p>
+                            
+                            <ul class="product-benefits">
+                                <li><i class="fas fa-check-circle"></i> Complete protein source with 70% crude protein</li>
+                                <li><i class="fas fa-check-circle"></i> 97% fish survival rate</li>
+                                <li><i class="fas fa-check-circle"></i> Very stable dry product with a long shelf life, with complete traceability</li>
+                                <li><i class="fas fa-check-circle"></i> Highly digestible and Palatable</li>
+                                <li><i class="fas fa-check-circle"></i> Gut health</li>
+                                <li><i class="fas fa-check-circle"></i> Low FCR</li>
+                            </ul>
+                            
+                            <a href="{% url 'enquire' %}" class="btn btn-primary">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- EcoVita Tab -->
+                <div id="ecovita-tab" class="tab-pane">
+                    <div class="product-showcase">
+                        <div class="product-image">
+                            <img src="{% static 'images/4.jpg' %}" alt="EcoVita">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">EcoVita</h3>
+                            <p class="product-tagline">Premium Organic Soil Conditioner</p>
+                            <p class="product-description">
+                                EcoVita is microbial liquid left over at the end of our process. High in nitrogen, phosphorus, and potassium (N-P-K), it is a valuable, organic soil conditioner.
+                            </p>
+                            <p class="product-process">
+                                EcoVita has proved to:
+                            </p>
+                            
+                            <ul class="product-benefits">
+                                <li><i class="fas fa-check-circle"></i> Increase yield and health of vegetable and fruits tree</li>
+                                <li><i class="fas fa-check-circle"></i> Have bio-stimulant property</li>
+                                <li><i class="fas fa-check-circle"></i> Facilitate Plant nutrient absorption</li>
+                                <li><i class="fas fa-check-circle"></i> Improve overall soil microflora</li>
+                            </ul>
+                            <a href="{% url 'enquire' %}" class="btn btn-primary">Enquire Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="products-wave-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#f8fafc" fill-opacity="1" d="M0,64L80,80C160,96,320,128,480,133.3C640,139,800,117,960,106.7C1120,96,1280,96,1360,96L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+/* Products Section Styling */
+.products-section {
+    padding: 80px 0;
+    background-color: #f0f9ff;
+    position: relative;
+}
+
+.products-wave-top, .products-wave-bottom {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+}
+
+.products-wave-top {
+    top: 0;
+}
+
+.products-wave-bottom {
+    bottom: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Tabs Styling */
+.product-tabs {
+    margin-top: 50px;
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    padding: 12px 25px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid #e2e8f0;
+    color: #4a5568;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 10px;
+}
+
+.tab-btn:hover {
+    color: #2b6cb0;
+    border-bottom-color: #90cdf4;
+}
+
+.tab-btn.active {
+    color: #2b6cb0;
+    border-bottom-color: #2b6cb0;
+}
+
+/* Tab Content Styling */
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.product-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.product-image {
+    flex: 1;
+    min-width: 300px;
+    height: 100%;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.product-info {
+    flex: 1.5;
+    padding: 40px;
+    min-width: 300px;
+}
+
+.product-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 10px;
+}
+
+.product-tagline {
+    font-size: 1.2rem;
+    color: #4a5568;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.product-description, .product-process {
+    font-size: 1.1rem;
+    color: #4a5568;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.product-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 30px;
+}
+
+.product-benefits li {
+    padding: 8px 0;
+    font-size: 1.05rem;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+}
+
+.product-benefits li i {
+    color: #38b2ac;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #3182ce;
+    color: #fff;
+    border: 2px solid #3182ce;
+}
+
+.btn-primary:hover {
+    background-color: #2b6cb0;
+    border-color: #2b6cb0;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(49, 130, 206, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .product-showcase {
+        flex-direction: column;
+    }
+    
+    .product-image {
+        width: 100%;
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tab-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tab-btn {
+        margin: 5px 0;
+        width: 80%;
+    }
+}
+
+/* JS for the tabs */
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons and tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(tab => tab.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding tab
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(tabId + '-tab').classList.add('active');
+        });
+    });
+});
+</script>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+// Initialize AOS (Animate on Scroll)
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+});
+</script>
+<script src="{% static 'js/product.js' %}"></script>
+<script src="{% static 'js/animations.js' %}"></script>
+
+{% endblock %}

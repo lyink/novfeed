@@ -1,0 +1,51 @@
+/* Additional CSS for service-details */
+.service-details {
+    color: var(--gray-700);
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    border-top: 1px solid var(--gray-200);
+    padding-top: 1.5rem;
+  }
+  
+  /* Remove modal related JavaScript */
+  .service-card {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: all var(--transition-normal);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--blue-primary), var(--green-primary));
+    transition: height var(--transition-normal);
+  }
+  
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .service-card:hover::before {
+    height: 8px;
+  }
+  
+  .service-description {
+    color: var(--gray-600);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }

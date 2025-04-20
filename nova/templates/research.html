@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novfeed | {{ title }}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-blue: #0062cc;
+            --secondary-blue: #00a2ff;
+            --accent-green: #00c9a7;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7fa;
+        }
+
+        .research-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .research-header-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+        }
+
+        .research-header-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+
+        .research-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .research-vision {
+            max-width: 800px;
+            margin: 30px auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .research-area {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .research-area:hover {
+            transform: translateY(-10px);
+        }
+
+        .research-area-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .research-area-content {
+            padding: 30px;
+        }
+
+        .research-area-title {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .research-area-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .research-area-details {
+            color: #333;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    {% include 'partials/navbar.html' %}
+    
+    <!-- Research Header -->
+    <section class="research-header">
+        <div class="research-header-image" style="background-image: url('{% static 'images/11.jpg' %}')"></div>
+        <div class="research-header-content">
+            <h1>R & D</h1>
+            <h8>Novfeed focuses on specific R&D programs to improve fish feed production metrics, develop new products, and discover new functionalities of its bio-factories such as Single cell bacteria
+
+            </h8>
+
+        </div>
+    </section>
+
+    <!-- Research Vision -->
+    <section class="container">
+        <div class="research-vision">
+        </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section class="container">
+        <div class="row">
+            {% for area in research_areas %}
+            <div class="col-md-6">
+                <div class="research-area">
+                    <div class="research-area-image" style="background-image: url('{% static area.image %}')"></div>
+                    <div class="research-area-content">
+                        <h2 class="research-area-title">{{ area.name }}</h2>
+                        <p class="research-area-description">{{ area.description }}</p>
+                        <div class="research-area-details">
+                            {{ area.details }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <script src="{% static 'js/animations.js' %}"></script>
+
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
+
+</body>
+</html>

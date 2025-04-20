@@ -1,0 +1,168 @@
+{% load static %}
+<!-- Top Contact Bar -->
+<div class="top-contact-bar bg-primary text-white py-2">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="contact-info d-flex align-items-center">
+                    <div class="me-3">
+                        <strong>Call Us:</strong> 
+                        <a href="tel:+255713584688" class="text-white">+255 713 584 688</a> | 
+                        <a href="tel:+255693438663" class="text-white">+255 693 438 663</a>
+                    </div>
+                    <div class="me-3">
+                        <strong>Email:</strong> 
+                        <a href="mailto:info@Novfeed.com" class="text-white">info@Novfeed.com</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="business-hours">
+                    <strong>Business Hours:</strong>
+                    <span>Mon - Fri: 8:00AM - 5:00PM</span>
+                    <span class="ms-2">Sat - Sun: Closed</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Navbar with logo -->
+<nav class="custom-navbar navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+        <!-- Logo with custom design -->
+        <a class="navbar-brand logo-container" href="{% url 'home' %}">
+            <div class="logo">
+                <div class="logo-main">Novfeed</div>
+                <div class="logo-tagline">Science. Future. Feed</div>
+            </div>
+        </a>
+        
+        <!-- Hamburger menu for mobile -->
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'about' %}active{% endif %}" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Our Company
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'news' %}">News</a></li>
+                        <li><a class="dropdown-item" href="{% url 'team' %}">Our Team</a></li>
+                        <li><a class="dropdown-item" href="{% url 'awards' %}">Awards</a></li>
+                        <li><a class="dropdown-item" href="{% url 'careers' %}">Careers</a></li>
+                        <li><a class="dropdown-item" href="{% url 'technology' %}">Technology</a></li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products' %}">Products & Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'research' %}">R&D</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'gallery' %}">Activity Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Add some additional CSS for top contact bar and logo styling -->
+<style>
+    .logo {
+        font-family: 'Arial', sans-serif;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 20px; /* Added padding to make room for tagline */
+    }
+    
+    .logo-main {
+        color: #0066cc;
+        font-size: 2.5rem; /* Increased from 2rem */
+        font-weight: bold;
+        letter-spacing: -2px;
+        line-height: 1.1; /* Added to control line height */
+        margin-bottom: 2px; /* Small space before tagline */
+    }
+    
+    .logo-tagline {
+        color: #0066cc;
+        font-size: 0.8rem; /* Slightly increased from 0.7rem */
+        position: absolute;
+        bottom: 0; /* Position at the bottom of the logo container */
+        right: 0;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        opacity: 0.9; /* Slight transparency to show hierarchy */
+    }
+    
+    /* Navigation styling */
+    .navbar-nav .nav-link {
+        padding: 0.5rem 0.8rem; /* Reduce horizontal padding to fit more items */
+        font-size: 0.95rem; /* Slightly reduce font size */
+    }
+    
+    /* Dropdown styling */
+    .dropdown-menu {
+        border-radius: 0.25rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        border: none;
+        padding: 0.5rem 0;
+    }
+    
+    .dropdown-item {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+        color: #0066cc;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .logo-main {
+            font-size: 2rem; /* Increased from 1.5rem */
+        }
+        
+        .logo-tagline {
+            font-size: 0.6rem; /* Increased from 0.5rem */
+            bottom: 0;
+        }
+        
+        /* Make dropdowns work better on mobile */
+        .navbar-nav .dropdown-menu {
+            border: none;
+            box-shadow: none;
+            padding-left: 1.5rem;
+        }
+    }
+</style>
+
+<!-- Make sure you have Bootstrap 5's JavaScript included for the dropdown functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize dropdowns if needed (Bootstrap 5 should auto-initialize them)
+        // This is just added as a fallback
+        var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+        var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl);
+        });
+    });
+</script>

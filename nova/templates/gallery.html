@@ -1,0 +1,196 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Gallery | Novfeed{% endblock %}
+
+{% block content %}
+<!-- Gallery Header Banner -->
+<section class="page-header-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="page-title">
+                    {% if selected_category %}
+                        {{ selected_category.name }}
+                    {% else %}
+                        Our Gallery
+                    {% endif %}
+                </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item {% if not selected_category %}active{% endif %}">Gallery</li>
+                        {% if selected_category %}
+                        <li class="breadcrumb-item active">{{ selected_category.name }}</li>
+                        {% endif %}
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Content Section -->
+<section class="gallery-content-section">
+    <div class="container-fluid px-5">
+        <!-- Gallery Images Grid -->
+        <div class="gallery-grid" data-aos="fade-up">
+            {% if images %}
+            <div class="row g-4">
+                {% for image in images %}
+                <div class="col-lg-4 col-md-6 gallery-item">
+                    <div class="gallery-card">
+                        <div class="gallery-image-wrapper">
+                            <a href="{% url 'gallery_image_detail' image.slug %}">
+                                <div class="gallery-image">
+                                    <img src="{{ image.image.url }}" alt="{{ image.alt_text|default:image.title }}" class="img-fluid">
+                                </div>
+                                <div class="gallery-card-content">
+                                    <div class="gallery-card-details">
+                                        <h3>{{ image.title }}</h3>
+                                        <p>{{ image.category.name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="no-images">
+                        <h4>No images found</h4>
+                        <p>There are no images in this category yet.</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block additional_css %}
+<style>
+    :root {
+        --primary-color: #3a6ea5;
+        --secondary-color: #f4f4f4;
+        --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        --transition-speed: 0.4s;
+    }
+
+    .gallery-content-section {
+        background-color: #f8f9fa;
+        padding: 80px 0;
+    }
+
+    .gallery-item {
+        margin-bottom: 30px;
+    }
+
+    .gallery-card {
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: all var(--transition-speed) ease;
+    }
+
+    .gallery-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .gallery-image-wrapper {
+        position: relative;
+    }
+
+    .gallery-image {
+        position: relative;
+        height: 500px; /* Increased height */
+        overflow: hidden;
+    }
+
+    .gallery-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition-speed) ease;
+    }
+
+    .gallery-card:hover .gallery-image img {
+        transform: scale(1.1);
+    }
+
+    .gallery-card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+        color: white;
+        padding: 30px 20px;
+        transition: all var(--transition-speed) ease;
+        opacity: 0;
+    }
+
+    .gallery-card:hover .gallery-card-content {
+        opacity: 1;
+    }
+
+    .gallery-card-details {
+        transform: translateY(20px);
+        transition: all var(--transition-speed) ease;
+    }
+
+    .gallery-card:hover .gallery-card-details {
+        transform: translateY(0);
+    }
+
+    .gallery-card-details h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: white;
+    }
+
+    .gallery-card-details p {
+        font-size: 1rem;
+        background-color: var(--primary-color);
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 50px;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1200px) {
+        .gallery-image {
+            height: 450px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .gallery-image {
+            height: 400px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .gallery-image {
+            height: 350px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .gallery-image {
+            height: 300px;
+        }
+    }
+</style>
+<script src="{% static 'js/animations.js' %}"></script>
+
+{% endblock %}

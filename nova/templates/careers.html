@@ -1,0 +1,392 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} | Novfeed</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'css/googleapis.css' %}" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-blue: #007bff;
+            --light-blue: #e6f2ff;
+            --dark-blue: #004085;
+            --gray-background: #f8f9fa;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-color);
+            background-color: white;
+        }
+
+        /* Hero Section */
+        .careers-hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .careers-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,86,179,0.9), rgba(0,123,255,0.9));
+            z-index: 1;
+        }
+
+        .careers-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Section Styling */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-blue);
+        }
+
+        /* Job Card */
+        .job-card {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .job-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Culture Highlights */
+        .culture-highlight {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--gray-background);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .culture-highlight:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .culture-highlight-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonial Card */
+        .testimonial-card {
+            background-color: var(--gray-background);
+            border-left: 4px solid var(--primary-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        /* Benefits Card */
+        .benefits-card {
+            background-color: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefits-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .benefits-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .careers-hero {
+                padding: 4rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    {% include 'partials/navbar.html' %}
+
+    <!-- Hero Section -->
+    <section class="careers-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 mb-4">Join Our Mission</h1>
+                    <p class="lead mb-5">
+                        Transform the world with innovative solutions that turn waste into valuable resources. 
+                        Be part of a team revolutionizing sustainability.
+                    </p>
+                    <a href="#open-positions" class="btn btn-primary-custom btn-lg">
+                        View Open Positions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Culture -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Culture</h2>
+            </div>
+            <div class="row">
+                {% for highlight in culture_highlights %}
+                <div class="col-md-4 mb-4">
+                    <div class="culture-highlight">
+                        <div class="culture-highlight-icon">
+                            <i class="fas {{ highlight.icon }}"></i>
+                        </div>
+                        <h3 class="h4 mb-3">{{ highlight.title }}</h3>
+                        <p>{{ highlight.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section id="open-positions" class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Open Positions</h2>
+            </div>
+            <div class="row">
+                {% for position in open_positions %}
+                <div class="col-md-4 mb-4">
+                    <div class="job-card p-4">
+                        <h3 class="h4 mb-3">{{ position.title }}</h3>
+                        <div class="mb-3">
+                            <span class="badge bg-primary-blue me-2">{{ position.department }}</span>
+                            <span class="text-muted">{{ position.location }}</span>
+                        </div>
+                        <p class="mb-4">{{ position.description }}</p>
+                        <h4 class="h6 mb-3">Requirements:</h4>
+                        <ul class="list-unstyled mb-4">
+                            {% for req in position.requirements %}
+                            <li class="mb-2">
+                                <i class="fas fa-check text-primary-blue me-2"></i>
+                                {{ req }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="#" class="btn btn-primary-custom" 
+                           data-bs-toggle="modal" 
+                           data-bs-target="#applicationModal{{ position.id }}">
+                            Apply Now
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Team Experiences</h2>
+            </div>
+            <div class="row">
+                {% for testimonial in testimonials %}
+                <div class="col-md-6 mb-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{{ testimonial.image }}" 
+                                 alt="{{ testimonial.name }}" 
+                                 class="rounded-circle me-3" 
+                                 style="width: 60px; height: 60px; object-fit: cover;">
+                            <div>
+                                <h4 class="h5 mb-1">{{ testimonial.name }}</h4>
+                                <p class="text-muted mb-0">{{ testimonial.position }}</p>
+                            </div>
+                        </div>
+                        <p class="fst-italic">"{{ testimonial.quote }}"</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Benefits & Perks</h2>
+            </div>
+            <div class="row">
+                {% for benefit in benefits %}
+                <div class="col-md-3 mb-4">
+                    <div class="benefits-card">
+                        <div class="benefits-icon">
+                            <i class="fas {{ benefit.icon }}"></i>
+                        </div>
+                        <h3 class="h5 mb-3">{{ benefit.title }}</h3>
+                        <p>{{ benefit.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Modals -->
+    {% for position in open_positions %}
+    <div class="modal fade" id="applicationModal{{ position.id }}" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Apply for {{ position.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="applicationForm{{ position.id }}">
+                        <input type="hidden" name="position" value="{{ position.id }}">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="full_name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Resume/CV</label>
+                            <input type="file" class="form-control" name="resume" accept=".pdf,.doc,.docx">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Why do you want to join Novfeed?</label>
+                            <textarea class="form-control" name="motivation" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="privacyConsent{{ position.id }}" required>
+                            <label class="form-check-label" for="privacyConsent{{ position.id }}">
+                                I agree to the privacy policy and consent to processing my personal data
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary-custom">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form submission handling
+        document.querySelectorAll('form[id^="applicationForm"]').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Basic form validation
+                if (!this.checkValidity()) {
+                    e.stopPropagation();
+                    this.classList.add('was-validated');
+                    return;
+                }
+
+                // Prepare form data
+                const formData = new FormData(this);
+
+                // Simulate form submission (replace with actual backend endpoint)
+                fetch('/submit-application/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message or modal
+                        alert('Application submitted successfully!');
+                        this.reset();
+                    } else {
+                        // Show error
+                        alert(data.message || 'Application submission failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again.');
+                });
+            });
+        });
+    </script>
+    <script src="{% static 'js/animations.js' %}"></script>
+
+</body>
+</html>

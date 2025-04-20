@@ -1,0 +1,783 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/animations.css' %}" rel="stylesheet">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-blue: #007bff;
+            --dark-blue: #004085;
+            --light-blue: #cce5ff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Page header */
+        .page-header {
+            background: linear-gradient(rgba(0, 86, 179, 0.8), rgba(0, 123, 255, 0.8)), url('{% static "images/2.jpg" %}') center center/cover no-repeat;
+            color: white;
+            padding: 120px 0 80px;
+            position: relative;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Section styling */
+        .section-header {
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .title-divider {
+            height: 3px;
+            width: 60px;
+            background-color: var(--secondary-blue);
+            margin: 0 auto 20px;
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        /* Technology intro section */
+        .tech-intro-section {
+            padding: 80px 0;
+            background-color: #f9fbff;
+        }
+
+        .tech-intro-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            height: 100%;
+        }
+
+        /* Problem section */
+        .problem-section {
+            padding: 80px 0;
+            background-color: white;
+            position: relative;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3);
+        }
+
+        .data-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .data-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .data-item i {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+
+        /* Process section */
+        .process-section {
+            padding: 80px 0;
+            background-color: #f9fbff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(0, 86, 179, 0.05);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .process-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(0, 86, 179, 0.05);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .process-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .process-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .process-content {
+            padding: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        /* Benefits section */
+        .benefits-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .benefits-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .benefits-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefits-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .benefits-header h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .benefits-body {
+            padding: 25px;
+            background-color: white;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .benefits-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .benefits-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: var(--primary-blue);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        .sustainability-card {
+            background-color: #f9fbff;
+            border-radius: 12px;
+            padding: 30px;
+            border-left: 5px solid var(--primary-blue);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+
+        /* Innovations section */
+        .innovations-section {
+            padding: 80px 0;
+            background-color: #f9fbff;
+        }
+
+        .innovation-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            text-align: center;
+        }
+
+        .innovation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .innovation-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .innovation-card:hover .innovation-icon {
+            transform: scale(1.1);
+        }
+
+        .innovation-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        /* Metrics section */
+        .metrics-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .metric-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover .metric-icon {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        /* CTA section */
+        .cta-section {
+            background: url('{% static "images/7.jpg" %}') center center/cover no-repeat;
+            padding: 100px 0;
+            position: relative;
+            color: white;
+        }
+
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 86, 179, 0.85);
+            z-index: 1;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-cta {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            background-color: white;
+            color: var(--primary-blue);
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            margin: 0 10px 10px;
+        }
+
+        .btn-cta:hover {
+            background-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .innovation-card, .benefits-card, .metric-card {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            .page-subtitle {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .tech-intro-card, .process-content {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            .cta-title {
+                font-size: 1.8rem;
+            }
+            .cta-text {
+                font-size: 1.1rem;
+            }
+            .btn-cta {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Transition Animation -->
+    <div class="page-transition">
+        <div class="logo-animation">
+            <span class="nova-text">Nov</span><span class="feed-text">Feed</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar (Include from Base Template) -->
+    {% include 'partials/navbar.html' %}
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title animate fade-in-up">Our Technology</h1>
+            <p class="page-subtitle animate fade-in-up delay-1">Innovation That Transforms Aquaculture and Agriculture</p>
+        </div>
+    </header>
+
+    <!-- Technology Introduction Section -->
+    <section class="tech-intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">{{ tech_intro.tagline }}</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Transforming Waste into Valuable Resources</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="tech-intro-card" data-aos="fade-up">
+                        <p class="mb-0">{{ tech_intro.overview }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">The Core Problem</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Challenges Facing Global Aquaculture and Agriculture</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="problem-card" data-aos="fade-up">
+                        <p class="mb-0">{{ core_problem.statement }}</p>
+                    </div>
+
+                    <div class="data-card" data-aos="fade-up" data-aos-delay="100">
+                        <h4 class="mb-4">Supporting Data:</h4>
+                        {% for item in core_problem.data %}
+                        <div class="data-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <p class="mb-0">{{ item }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">How Our Technology Works</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Revolutionary Microbial Fermentation Process</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="process-image">
+                        <img src="{% static 'images/9.jpg' %}" alt="NovFeed Process">
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="process-content">
+                        <p class="mb-4">{{ process.description }}</p>
+                        
+                        <h4 class="mb-4">Key Features:</h4>
+                        {% for feature in process.features %}
+                        <div class="feature-card">
+                            <h5 class="feature-title">{{ feature.title }}</h5>
+                            <p class="mb-0">{{ feature.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">Benefits of Our Technology</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Creating Value for People, Planet, and Profits</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="benefits-card">
+                        <div class="benefits-header">
+                            <h4>Environmental Impact</h4>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="benefits-list">
+                                {% for item in benefits.environmental %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="benefits-card">
+                        <div class="benefits-header">
+                            <h4>Performance Benefits</h4>
+                        </div>
+                        <div class="benefits-body">
+                            <ul class="benefits-list">
+                                {% for item in benefits.performance %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="sustainability-card" data-aos="fade-up" data-aos-delay="300">
+                        <h4 class="mb-3">Sustainability Goals</h4>
+                        <p class="mb-0">{{ benefits.sustainability }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovations Section -->
+    <section class="innovations-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">Innovations & Unique Selling Points</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">What Sets NovFeed's Technology Apart</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for innovation in innovations %}
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'100' }}">
+                    <div class="innovation-card">
+                        <div class="innovation-icon">
+                            <i class="{{ innovation.icon }}"></i>
+                        </div>
+                        <h4 class="innovation-title">{{ innovation.title }}</h4>
+                        <p class="mb-0">{{ innovation.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">Supporting Data & Achievements</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">The Numbers Behind Our Technology</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for metric in metrics %}
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'100' }}">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="{{ metric.icon }}"></i>
+                        </div>
+                        <h3 class="metric-value">{{ metric.value }}</h3>
+                        <p class="metric-label">{{ metric.label }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="cta-title">Ready to Transform Your Operations?</h2>
+                <p class="cta-text">Discover how NovFeed's innovative technology can revolutionize your aquaculture or agriculture business while promoting sustainability.</p>
+                <div>
+                    <a href="{% url 'contact' %}" class="btn btn-cta">Contact Us Today</a>
+                    <a href="#" class="btn btn-cta">Request a Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Include from Base Template) -->
+    {% include 'partials/footer.html' %}
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            // Remove page transition after load
+            setTimeout(function() {
+                const pageTransition = document.querySelector('.page-transition');
+                pageTransition.style.opacity = '0';
+                setTimeout(function() {
+                    pageTransition.style.display = 'none';
+                }, 500);
+            }, 800);
+            
+            // Navbar scroll effect
+            const navbar = document.querySelector('.custom-navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Animation for elements when they come into view
+            const animateElements = document.querySelectorAll('.animate');
+            
+            function checkIfInView() {
+                const windowHeight = window.innerHeight;
+                const windowTopPosition = window.scrollY;
+                const windowBottomPosition = windowTopPosition + windowHeight;
+                
+                animateElements.forEach(function(element) {
+                    const elementRect = element.getBoundingClientRect();
+                    const elementTopPosition = elementRect.top + windowTopPosition;
+                    const elementBottomPosition = elementTopPosition + elementRect.height;
+                    
+                    // Check if element is in viewport
+                    if ((elementBottomPosition >= windowTopPosition) && 
+                        (elementTopPosition <= windowBottomPosition)) {
+                        element.style.opacity = '1';
+                    }
+                });
+            }
+            
+            // Initial check
+            checkIfInView();
+            
+            // Check when scrolling
+            window.addEventListener('scroll', checkIfInView);
+        });
+    </script>
+</body>
+</html>

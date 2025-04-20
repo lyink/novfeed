@@ -1,0 +1,955 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novfeed - {{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Import the animations CSS file -->
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <!-- Google Fonts for Navbar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- About Page Specific CSS -->
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+</head>
+<body>
+    <style>
+        /* Team Section Styles with Flat Row-Based Layout */
+
+        /* Row-Based Team Layout Styles */
+        .team-rows-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .team-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        /* First row - 4 members */
+        .team-row.row-4 {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        /* Second row - 3 members */
+        .team-row.row-3 {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .team-member-item {
+            flex: 0 0 auto;
+            width: calc(25% - 30px);
+            max-width: 280px;
+        }
+        
+        .team-row.row-3 .team-member-item {
+            width: calc(33.333% - 30px);
+        }
+        
+        .team-circular-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .team-circular-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .team-circular-image {
+            position: relative;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .team-circular-image img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #f8f9fa;
+            transition: transform 0.4s ease;
+        }
+        
+        .team-circular-card:hover .team-circular-image img {
+            transform: scale(1.05);
+        }
+        
+        .team-circular-card .team-social {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .team-circular-card:hover .team-social {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #0077B5;
+            color: #fff;
+            border-radius: 50%;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: #005e93;
+            transform: scale(1.1);
+        }
+        
+        .team-info {
+            text-align: center;
+        }
+        
+        .team-info h4 {
+            margin-bottom: 5px;
+            color: #212529;
+            font-weight: 600;
+        }
+        
+        .team-position {
+            color: #0d6efd;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .team-bio {
+            font-size: 0.9rem;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+        
+        /* Animations for team members */
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+        
+        /* Make the layout responsive */
+        @media (max-width: 1200px) {
+            .team-member-item {
+                width: calc(25% - 20px);
+            }
+            
+            .team-row.row-3 .team-member-item {
+                width: calc(33.333% - 20px);
+            }
+            
+            .team-row {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .team-member-item, 
+            .team-row.row-3 .team-member-item {
+                width: calc(50% - 15px);
+            }
+            
+            .team-row.row-4, 
+            .team-row.row-3 {
+                flex-wrap: wrap;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .team-member-item, 
+            .team-row.row-3 .team-member-item {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .team-row.row-4, 
+            .team-row.row-3 {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .team-circular-image img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .team-rows-container {
+                gap: 20px;
+            }
+        }
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #0077B5;
+    color: #fff;
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #005e93;
+    transform: scale(1.1);
+}
+
+
+/* Enhanced Award Card Styles */
+.award-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.award-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.award-logo {
+    height: 150px;
+    overflow: hidden;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.award-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.award-card:hover .award-logo img {
+    transform: scale(1.05);
+}
+
+.award-info {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.award-info h4 {
+    margin-bottom: 5px;
+    color: #0d6efd;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.award-org {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 5px;
+}
+
+.award-year {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.award-year i {
+    margin-right: 5px;
+}
+
+.award-desc {
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Technology Section Styles */
+.technology-section {
+    background-color: #f9f9f9;
+    position: relative;
+    overflow: hidden;
+}
+
+.process-step {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+}
+
+.process-step h4 {
+    color: #0d6efd;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.process-number {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 60px;
+    font-weight: 800;
+    color: rgba(13, 110, 253, 0.1);
+    line-height: 1;
+}
+
+.benefits-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.benefits-list li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #dee2e6;
+    position: relative;
+    padding-left: 30px;
+}
+
+.benefits-list li:last-child {
+    border-bottom: none;
+}
+
+.benefits-list li:before {
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #28a745;
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+
+/* Sustainability Section Styles */
+.sustainability-section {
+    background-color: #ebf7ee;
+    position: relative;
+}
+
+.sustainability-bg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background-image: url('{% static "images/12.jpg" %}');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.sdg-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.sdg-card:hover {
+    transform: translateY(-5px);
+}
+
+.sdg-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: rgba(13, 110, 253, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.sdg-icon i {
+    font-size: 30px;
+    color: #0d6efd;
+}
+
+.impact-story {
+    background: #fff;
+    border-left: 4px solid #0d6efd;
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.impact-story h5 {
+    color: #0d6efd;
+    margin-bottom: 10px;
+}
+
+
+</style>
+
+    <!-- Navigation Bar -->
+    {% include 'partials/navbar.html' %}
+    
+    <!-- Hero Section with Parallax Effect -->
+    <section class="about-hero-section">
+        <div class="parallax-bg"></div>
+        <div class="container position-relative">
+            <div class="hero-content animate fade-in-up">
+                <h1 class="display-4 fw-bold text-white">Our Journey</h1>
+                <div class="title-divider"></div>
+                <p class="lead text-white">Transforming Organic Waste into Sustainable Solutions Since 2020</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vision & Mission with Animated Background -->
+    <section class="vision-mission-section py-5">
+        <div class="animated-bg">
+            <div class="floating-shape shape1"></div>
+            <div class="floating-shape shape2"></div>
+            <div class="floating-shape shape3"></div>
+        </div>
+        <div class="container position-relative">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-10 col-lg-8">
+                    <div class="section-header mb-5 animate fade-in-up">
+                        <h2 class="section-title text-white">Vision & Mission</h2>
+                        <div class="title-divider"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4 animate fade-in-left">
+                    <div class="vision-mission-card">
+                        <div class="card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Our Vision</h3>
+                        <p>"{{ vision_mission.vision }}"</p>
+                        <div class="card-pattern"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4 animate fade-in-right">
+                    <div class="vision-mission-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Our Mission</h3>
+                        <p>"{{ vision_mission.mission }}"</p>
+                        <div class="card-pattern"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4 animate fade-in-up delay-1">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h4>Sustainability</h4>
+                        <p>We are committed to creating solutions that protect and preserve our environment for future generations.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate fade-in-up delay-2">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Innovation</h4>
+                        <p>We constantly explore new ideas and technologies to improve our products and processes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate fade-in-up delay-3">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Community</h4>
+                        <p>We believe in creating positive impact for the communities we serve and work with.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Our Story Section -->
+    <section class="our-story-section py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">The Story Behind Novfeed</h2>
+                <div class="title-divider"></div>
+            </div>
+            
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0 animate fade-in-left">
+                    <div class="story-image-container">
+                        <img src="{% static 'images/3.jpg' %}" alt="Novfeed Story" class="img-fluid rounded shadow">
+                        <div class="story-image-pattern"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 animate fade-in-right">
+                    <h3 class="h4 text-primary-blue">The Spark of Innovation</h3>
+                    <p>{{ story.founding }}</p>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-6 animate fade-in-left">
+                    <div class="info-card mb-4">
+                        <div class="info-card-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3 class="h4">The Problem We Aim to Solve</h3>
+                        <p>{{ story.problem }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 animate fade-in-right">
+                    <div class="info-card mb-4">
+                        <div class="info-card-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3 class="h4">The Science Behind Novfeed</h3>
+                        <p>{{ story.science }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12 text-center animate fade-in-up">
+                    <div class="achievement-wrapper d-flex flex-wrap justify-content-center">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h4 class="h5">500+ Tons</h4>
+                                <p class="mb-0">Organic waste processed annually</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-fish"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h4 class="h5">200+ Farmers</h4>
+                                <p class="mb-0">Using our sustainable solutions</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <h4 class="h5">30% Increase</h4>
+                                <p class="mb-0">In crop yields with our bio-fertilizers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Technology and Innovation Section -->
+    <section class="technology-section py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">Technology & Innovation</h2>
+                <div class="title-divider"></div>
+                <p class="lead text-muted">Core Innovations: Turning Waste into Resources</p>
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0 animate fade-in-left">
+                    <p class="lead">{{ technology.core }}</p>
+                </div>
+                <div class="col-lg-6 animate fade-in-right">
+                    <h3 class="h4 mb-4">How It Works</h3>
+                    {% for step in technology.process %}
+                    <div class="process-step">
+                        <div class="process-number">{{ forloop.counter }}</div>
+                        <h4>{{ step.step }}</h4>
+                        <p>{{ step.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4 animate fade-in-up">
+                    <div class="benefits-card">
+                        <h3 class="h5 mb-3">For Aquaculture</h3>
+                        <ul class="benefits-list">
+                            {% for benefit in technology.benefits.aquaculture %}
+                            <li>{{ benefit }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate fade-in-up delay-1">
+                    <div class="benefits-card">
+                        <h3 class="h5 mb-3">For Agriculture</h3>
+                        <ul class="benefits-list">
+                            {% for benefit in technology.benefits.agriculture %}
+                            <li>{{ benefit }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate fade-in-up delay-2">
+                    <div class="benefits-card">
+                        <h3 class="h5 mb-3">For Environment</h3>
+                        <ul class="benefits-list">
+                            {% for benefit in technology.benefits.environment %}
+                            <li>{{ benefit }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-12 animate fade-in-up">
+                    <div class="uniqueness-card p-4 bg-light rounded">
+                        <h3 class="h4 mb-3">What Sets Us Apart</h3>
+                        <ul class="benefits-list">
+                            {% for point in technology.uniqueness %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+<!-- Team Section with Flat 4-3 Row Layout -->
+<section class="team-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5 animate fade-in-up">
+            <h2 class="section-title">Our Team</h2>
+            <div class="title-divider"></div>
+            <p class="lead text-muted">Meet the dedicated professionals behind Novfeed</p>
+        </div>
+        
+        <div class="team-rows-container">
+            <!-- First row (4 members) -->
+            <div class="team-row row-4">
+                {% for member in team_members|slice:":4" %}
+                <div class="team-member-item animate fade-in-up delay-{{ forloop.counter }}">
+                    <div class="team-circular-card">
+                        <div class="team-circular-image">
+                            <img src="{% static member.image %}" alt="{{ member.name }}">
+                            <div class="team-social">
+                                <a href="{{ member.linkedin }}" class="social-icon" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-info text-center">
+                            <h4>{{ member.name }}</h4>
+                            <p class="team-position">{{ member.position }}</p>
+                            <p class="team-bio">{{ member.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Second row (3 members) - only if there are more than 4 members -->
+            {% if team_members|length > 4 %}
+            <div class="team-row row-3">
+                {% for member in team_members|slice:"4:7" %}
+                <div class="team-member-item animate fade-in-up delay-{{ forloop.counter|add:4 }}">
+                    <div class="team-circular-card">
+                        <div class="team-circular-image">
+                            <img src="{% static member.image %}" alt="{{ member.name }}">
+                            <div class="team-social">
+                                <a href="{{ member.linkedin }}" class="social-icon" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-info text-center">
+                            <h4>{{ member.name }}</h4>
+                            <p class="team-position">{{ member.position }}</p>
+                            <p class="team-bio">{{ member.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- If there are more than 7 members, display them in additional rows -->
+            {% if team_members|length > 7 %}
+            <div class="team-row">
+                {% for member in team_members|slice:"7:" %}
+                <div class="team-member-item animate fade-in-up delay-{{ forloop.counter|add:7 }}">
+                    <div class="team-circular-card">
+                        <div class="team-circular-image">
+                            <img src="{% static member.image %}" alt="{{ member.name }}">
+                            <div class="team-social">
+                                <a href="{{ member.linkedin }}" class="social-icon" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="team-info text-center">
+                            <h4>{{ member.name }}</h4>
+                            <p class="team-position">{{ member.position }}</p>
+                            <p class="team-bio">{{ member.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+    <!-- Company Timeline -->
+    <section class="timeline-section py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">Our Journey</h2>
+                <div class="title-divider"></div>
+                <p class="lead text-muted">The story of our growth and development</p>
+            </div>
+            
+            <div class="timeline">
+                {% for item in timeline %}
+                <div class="timeline-item {% if forloop.counter|divisibleby:2 %}right{% else %}left{% endif %} animate {% if forloop.counter|divisibleby:2 %}fade-in-left{% else %}fade-in-right{% endif %} delay-{{ forloop.counter }}">
+                    <div class="timeline-badge">{{ item.year }}</div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>{{ item.title }}</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Awards & Recognition Section -->
+    <section class="awards-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="section-header animate fade-in-left">
+                        <h2 class="section-title">Awards & Recognition</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Our work has been recognized for excellence and innovation in sustainable solutions.</p>
+                        <p>These awards highlight our commitment to creating positive environmental impact while providing value to our customers and communities.</p>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        {% for award in awards %}
+                        <div class="col-md-6 mb-4 animate fade-in-right delay-{{ forloop.counter }}">
+                            <div class="award-card">
+                                <div class="award-logo">
+                                    <img src="{% static award.image %}" alt="{{ award.title }}">
+                                </div>
+                                <div class="award-info">
+                                    <h4>{{ award.title }}</h4>
+                                    <p class="award-org">{{ award.organization }}</p>
+                                    <p class="award-year"><i class="far fa-calendar-alt"></i> {{ award.year }}</p>
+                                    <p class="award-desc">{{ award.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Partners & Collaborators 
+    <section class="partners-section py-5 bg-light-blue">
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">Our Partners</h2>
+                <div class="title-divider"></div>
+                <p class="lead text-muted">Working together to create sustainable solutions</p>
+            </div>
+            
+            <div class="partners-carousel animate fade-in-up">
+                <div class="row">
+                    {% for partner in partners %}
+                    <div class="col-6 col-md-3 mb-4">
+                        <div class="partner-card">
+                            <div class="partner-logo">
+                                <img src="https://via.placeholder.com/150" alt="{{ partner.name }}">
+                            </div>
+                            <div class="partner-info text-center">
+                                <h5>{{ partner.name }}</h5>
+                                <p class="partner-type">{{ partner.type }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>-->
+    
+    <!-- Social Impact and Sustainability Section -->
+    <section class="sustainability-section py-5">
+        <div class="sustainability-bg"></div>
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">Social Impact & Sustainability</h2>
+                <div class="title-divider"></div>
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto animate fade-in-up">
+                    <div class="commitment-card p-4 bg-white rounded shadow-sm">
+                        <h3 class="h4 mb-3">Our Commitment to Sustainability</h3>
+                        <p>{{ sustainability.commitment }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-lg-6 mb-4 animate fade-in-left">
+                    <h3 class="h4 mb-3">Sustainability Practices</h3>
+                    <ul class="practices-list">
+                        {% for practice in sustainability.practices %}
+                        <li>{{ practice }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-lg-6 animate fade-in-right">
+                    <h3 class="h4 mb-3">Alignment with UN's Sustainable Development Goals</h3>
+                    <div class="row">
+                        {% for sdg in sustainability.sdgs %}
+                        <div class="col-md-6 mb-3">
+                            <div class="sdg-card">
+                                <h4 class="h5 text-primary">{{ sdg.goal }}</h4>
+                                <p class="mb-0">{{ sdg.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="h4 mb-3">Stories of Impact</h3>
+                </div>
+                {% for story in sustainability.impact_stories %}
+                <div class="col-md-6 animate fade-in-up delay-{{ forloop.counter }}">
+                    <div class="impact-story">
+                        <h5>{{ story.title }}</h5>
+                        <p class="mb-0">{{ story.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Call to Action -->
+    <section class="cta-section py-5 text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center animate fade-in-up">
+                    <h2 class="mb-4">Join Our Mission for a Sustainable Future</h2>
+                    <p class="lead mb-4">Place your order now.</p>
+                    <div class="d-flex justify-content-center flex-wrap gap-3">
+                        <a href="{% url 'contact' %}" class="btn btn-light btn-lg">Contact Us</a>
+                        <a href="#" class="btn btn-outline-light btn-lg">View Our Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+    
+    <!-- WhatsApp Floating Button -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+        <a href="https://wa.me/255693438663" target="_blank" class="btn btn-success rounded-circle pulse" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <i class="fab fa-whatsapp fa-2x"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Import the animations JavaScript file -->
+    
+    <!-- About Page Specific JS -->
+    <script src="{% static 'js/about.js' %}"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,730 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/animations.css' %}" rel="stylesheet">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        /* Additional Custom Styles */
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            z-index: 3;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+            color: white;
+                }
+        
+        .hero-subtitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.3);
+            color: white;
+                }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn-hero {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hero-primary {
+            background-color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-hero-primary:hover {
+            background-color: var(--dark-blue);
+            border-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-hero-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-hero-outline:hover {
+            background-color: white;
+            color: var(--primary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .values-section {
+            background-color: #f9fbff;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .values-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(0, 86, 179, 0.05);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .values-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(0, 86, 179, 0.05);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+        }
+        
+        .value-card:hover .value-icon {
+            transform: scale(1.1);
+        }
+        
+        .value-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+        
+        .value-description {
+            color: #555;
+            font-size: 1rem;
+        }
+        
+        .about-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .mission-vision-container {
+            margin-top: 50px;
+        }
+        
+        .mission-card, 
+        .vision-card {
+            border-radius: 12px;
+            padding: 30px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 86, 179, 0.3);
+        }
+        
+        .vision-card {
+            background-color: white;
+            border: 2px solid var(--light-blue);
+            color: #333;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mission-card:hover,
+        .vision-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .mission-title,
+        .vision-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .mission-title::after,
+        .vision-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+        }
+        
+        .mission-title::after {
+            background-color: white;
+        }
+        
+        .vision-title::after {
+            background-color: var(--primary-blue);
+        }
+        
+        .mission-text,
+        .vision-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .technology-section {
+            padding: 100px 0;
+            background-color: #f9fbff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tech-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tech-card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .tech-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+        
+        .tech-card:hover .tech-card-img img {
+            transform: scale(1.1);
+        }
+        
+        .tech-card-body {
+            padding: 25px;
+        }
+        
+        .tech-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .tech-card-text {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .cta-section {
+            background: url('{% static "images/7.jpg" %}') center center/cover no-repeat;
+            padding: 100px 0;
+            position: relative;
+            color: white;
+        }
+        
+        .cta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 86, 179, 0.85);
+            z-index: 1;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .cta-text {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            background-color: white;
+            color: var(--primary-blue);
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cta:hover {
+            background-color: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .cta-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .btn-hero {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+            
+            .value-card {
+                margin-bottom: 30px;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .cta-text {
+                font-size: 1.1rem;
+            }
+            
+            .btn-cta {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-hero {
+                width: 100%;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Transition Animation -->
+    <div class="page-transition">
+        <div class="logo-animation">
+            <span class="nova-text">Nov</span><span class="feed-text">Feed</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar (Include from Base Template) -->
+    {% include 'partials/navbar.html' %}
+
+    <!-- Hero Carousel Section -->
+    <section class="hero-carousel-section">
+        <div class="fullscreen-carousel">
+            <div class="carousel-slides">
+                {% for hero in hero_images %}
+                <div class="carousel-slide {% if forloop.first %}active{% endif %}">
+                    <img src="{% static hero.image %}" alt="{{ hero.title }}">
+                    <div class="overlay"></div>
+                    <div class="hero-content">
+                        <h1 class="hero-title animate fade-in-up">{{ hero.title }}</h1>
+                        <p class="hero-subtitle animate fade-in-up delay-1">{{ hero.subtitle }}</p>
+                        <div class="hero-buttons">
+                            <a href="{% url 'about' %}" class="btn btn-hero btn-hero-primary animate fade-in-up delay-2">Learn More</a>
+                            <a href="{% url 'contact' %}" class="btn btn-hero btn-hero-outline animate fade-in-up delay-3">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="carousel-controls">
+                <div class="carousel-control carousel-prev">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="carousel-control carousel-next">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="carousel-indicators">
+                {% for hero in hero_images %}
+                <div class="carousel-indicator {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">About NovFeed</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Transforming Organic Waste into Valuable Resources</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="about-content-card" data-aos="fade-up">
+                        <div class="card-body">
+                            <p>{{ about.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mission-vision-container">
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="mission-card">
+                        <h3 class="mission-title">Our Mission</h3>
+                        <p class="mission-text">{{ about.mission }}</p>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="vision-card">
+                        <h3 class="vision-title">Our Vision</h3>
+                        <p class="vision-text">{{ about.vision }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values Section -->
+    <section class="values-section" id="values">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">Our Core Values</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">The principles that guide everything we do at NovFeed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for value in values %}
+                <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'100' }}">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="{{ value.icon }}"></i>
+                        </div>
+                        <h4 class="value-title">{{ value.title }}</h4>
+                        <p class="value-description">{{ value.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology-section" id="technology">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="section-header" data-aos="fade-up">
+                        <h2 class="section-title">Our Technology</h2>
+                        <div class="title-divider"></div>
+                        <p class="lead">Revolutionary biotechnology solutions for a sustainable future</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="tech-card">
+                        <div class="tech-card-img">
+                            <img src="{% static 'images/9.jpg' %}" alt="Biotechnological Platform">
+                        </div>
+                        <div class="tech-card-body">
+                            <h4 class="tech-card-title">Biotechnological Platform</h4>
+                            <p class="tech-card-text">Our innovative platform transforms organic waste into valuable resources using advanced industrial biotech processes.</p>
+                            <a href="#" class="btn btn-primary-blue">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tech-card">
+                        <div class="tech-card-img">
+                            <img src="{% static 'images/2.jpg' %}" alt="Protein Solutions">
+                        </div>
+                        <div class="tech-card-body">
+                            <h4 class="tech-card-title">Protein Solutions</h4>
+                            <p class="tech-card-text">We convert waste into highly concentrated protein products for aquaculture and agriculture, enhancing food security.</p>
+                            <a href="#" class="btn btn-primary-blue">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="tech-card">
+                        <div class="tech-card-img">
+                            <img src="{% static 'images/3.jpg' %}" alt="Bio-Fertilizers">
+                        </div>
+                        <div class="tech-card-body">
+                            <h4 class="tech-card-title">Bio-Fertilizers</h4>
+                            <p class="tech-card-text">Our nutrient-rich bio-fertilizers support sustainable agricultural practices while reducing environmental impact.</p>
+                            <a href="#" class="btn btn-primary-blue">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="cta-overlay"></div>
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2 class="cta-title">Ready to Transform Waste into Value?</h2>
+                <p class="cta-text">Join us in creating sustainable solutions for a better future. Discover how our innovative biotechnology can benefit your business and the environment.</p>
+                <a href="{% url 'contact' %}" class="btn btn-cta">Contact Us Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Include from Base Template) -->
+    {% include 'partials/footer.html' %}
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            // Remove page transition after load
+            setTimeout(function() {
+                const pageTransition = document.querySelector('.page-transition');
+                pageTransition.style.opacity = '0';
+                setTimeout(function() {
+                    pageTransition.style.display = 'none';
+                }, 500);
+            }, 800);
+            
+            // Navbar scroll effect
+            const navbar = document.querySelector('.custom-navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Hero Carousel
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            let currentSlide = 0;
+            let slideInterval;
+            
+            function goToSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                indicators[index].classList.add('active');
+                currentSlide = index;
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                goToSlide(currentSlide);
+            }
+            
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                goToSlide(currentSlide);
+            }
+            
+            function startSlideShow() {
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+            
+            function stopSlideShow() {
+                clearInterval(slideInterval);
+            }
+            
+            // Carousel controls
+            nextBtn.addEventListener('click', function() {
+                stopSlideShow();
+                nextSlide();
+                startSlideShow();
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                stopSlideShow();
+                prevSlide();
+                startSlideShow();
+            });
+            
+            // Carousel indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', function() {
+                    stopSlideShow();
+                    goToSlide(index);
+                    startSlideShow();
+                });
+            });
+            
+            // Start slideshow
+            startSlideShow();
+            
+            // On hover, stop slideshow
+            const carousel = document.querySelector('.fullscreen-carousel');
+            carousel.addEventListener('mouseenter', stopSlideShow);
+            carousel.addEventListener('mouseleave', startSlideShow);
+            
+            // Animation for elements when they come into view
+            const animateElements = document.querySelectorAll('.animate');
+            
+            function checkIfInView() {
+                const windowHeight = window.innerHeight;
+                const windowTopPosition = window.scrollY;
+                const windowBottomPosition = windowTopPosition + windowHeight;
+                
+                animateElements.forEach(function(element) {
+                    const elementRect = element.getBoundingClientRect();
+                    const elementTopPosition = elementRect.top + windowTopPosition;
+                    const elementBottomPosition = elementTopPosition + elementRect.height;
+                    
+                    // Check if element is in viewport
+                    if ((elementBottomPosition >= windowTopPosition) && 
+                        (elementTopPosition <= windowBottomPosition)) {
+                        element.style.opacity = '1';
+                    }
+                });
+            }
+            
+            // Initial check
+            checkIfInView();
+            
+            // Check when scrolling
+            window.addEventListener('scroll', checkIfInView);
+        });
+    </script>
+</body>
+</html>

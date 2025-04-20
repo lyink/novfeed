@@ -1,0 +1,737 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/awards.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Main Colors */
+:root {
+  --primary-color: #0077B6;
+  --secondary-color: #00B4D8;
+  --accent-color: #90E0EF;
+  --light-color: #CAF0F8;
+  --dark-color: #03045E;
+  --gold: #FFD700;
+  --silver: #C0C0C0;
+  --bronze: #CD7F32;
+  --white: #ffffff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-800: #343a40;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Hero Section */
+.awards-hero {
+  position: relative;
+  padding: 120px 0 100px;
+  background-color: var(--dark-color);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../static/images/11.svg');
+  background-size: cover;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-wave {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+/* Awards Showcase Section */
+.awards-showcase {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-heading h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-heading h2:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.section-heading p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--gray-800);
+}
+
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.award-card {
+  background-color: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.award-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.award-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.award-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.award-card:hover .award-image img {
+  transform: scale(1.1);
+}
+
+.award-year {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--gold);
+  color: var(--dark-color);
+  font-weight: 700;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.award-content {
+  padding: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.award-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--dark-color);
+}
+
+.award-organization {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.award-description {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: auto;
+}
+
+/* Highlight the first award with a special style */
+.award-card:first-child {
+  position: relative;
+}
+
+.award-card:first-child:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.award-card:first-child .award-year {
+  background-color: var(--gold);
+}
+
+.award-card:nth-child(2) .award-year {
+  background-color: var(--silver);
+}
+
+.award-card:nth-child(3) .award-year {
+  background-color: var(--bronze);
+}
+
+/* Mission Section */
+.mission-section {
+  padding: 80px 0;
+  background-color: var(--gray-100);
+}
+
+.mission-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mission-content h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+}
+
+.mission-content > p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 40px;
+}
+
+.mission-values {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.value-item {
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.value-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.value-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.value-icon i {
+  font-size: 28px;
+  color: var(--white);
+}
+
+.value-item h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--dark-color);
+}
+
+.value-item p {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+/* Testimonial Section */
+.testimonial-section {
+  position: relative;
+  padding: 100px 0;
+  background-color: var(--primary-color);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.testimonial-wave-top, .testimonial-wave-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.testimonial-wave-top {
+  top: -10px;
+}
+
+.testimonial-wave-bottom {
+  bottom: -10px;
+}
+
+.testimonial-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial-quote {
+  text-align: center;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.testimonial-quote i {
+  font-size: 40px;
+  color: rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px;
+}
+
+.testimonial-quote blockquote {
+  font-size: 1.3rem;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 30px;
+  line-height: 1.7;
+}
+
+.testimonial-author {
+  margin-top: 20px;
+}
+
+.author-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.author-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Call to Action Section */
+.cta-section {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 20px;
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: var(--gray-800);
+}
+
+.cta-buttons {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: #006094;
+  border-color: #006094;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.btn-secondary:hover {
+  background-color: #0096b7;
+  border-color: #0096b7;
+}
+
+.btn-large {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+}
+
+/* Animation */
+[data-aos] {
+  transition-duration: 800ms;
+}
+
+/* Shimmer effect for awards */
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.award-card:first-child .award-image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  animation: shimmer 2s infinite;
+  transform: skewX(-20deg);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  
+  .section-heading h2 {
+    font-size: 2.2rem;
+  }
+  
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+  
+  .awards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .awards-hero {
+    padding: 80px 0 60px;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .awards-showcase {
+    padding: 60px 0;
+  }
+  
+  .awards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .testimonial-quote blockquote {
+    font-size: 1.1rem;
+  }
+  
+  .cta-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .value-item {
+    padding: 20px;
+  }
+}
+
+/* Hover and focus effects */
+.award-card:focus-within {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.3);
+}
+
+/* Trophy icon animation */
+.award-card::before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f091";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  color: var(--gold);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.award-card:hover::before {
+  opacity: 1;
+  top: -15px;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .award-card:hover {
+    transform: none;
+  }
+  
+  .award-card:hover .award-image img {
+    transform: none;
+  }
+  
+  .award-card:hover::before {
+    opacity: 0;
+  }
+  
+  [data-aos] {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  
+  .award-card:first-child .award-image::after {
+    animation: none;
+  }
+}
+</style>
+<!-- Hero Section -->
+<section class="awards-hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="fade-up">Our Awards & Recognition</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">Celebrating excellence in sustainable aquaculture innovation</p>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#ffffff" fill-opacity="1" d="M0,160L80,144C160,128,320,96,480,96C640,96,800,128,960,138.7C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Awards Showcase Section -->
+<section class="awards-showcase">
+    <div class="container">
+        <div class="section-heading" data-aos="fade-up">
+            <h2>Recognized for Excellence</h2>
+            <p>Our dedication to innovation and sustainability has been recognized by leading organizations in the industry.</p>
+        </div>
+
+        <div class="awards-grid">
+            {% for award in awards %}
+            <div class="award-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:"-1" }}00">
+                <div class="award-image">
+                    <img src="{% static award.image %}" alt="{{ award.title }}">
+                    <div class="award-year">{{ award.year }}</div>
+                </div>
+                <div class="award-content">
+                    <h3 class="award-title">{{ award.title }}</h3>
+                    <div class="award-organization">{{ award.organization }}</div>
+                    <p class="award-description">{{ award.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision Section -->
+<section class="mission-section">
+    <div class="container">
+        <div class="mission-content" data-aos="fade-up">
+            <h2>Our Commitment to Excellence</h2>
+            <p>At Novfeed, we're dedicated to revolutionizing aquaculture through sustainable innovation. These awards reflect our ongoing commitment to creating solutions that benefit both people and the planet.</p>
+            
+            <div class="mission-values">
+                <div class="value-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>Developing solutions that minimize environmental impact while maximizing resource efficiency.</p>
+                </div>
+                
+                <div class="value-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>Pushing the boundaries of what's possible in aquaculture through cutting-edge research and technology.</p>
+                </div>
+                
+                <div class="value-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Community Impact</h3>
+                    <p>Creating positive social and economic outcomes for the communities we serve.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="testimonial-section">
+    <div class="testimonial-wave-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#ffffff" fill-opacity="1" d="M0,128L80,117.3C160,107,320,85,480,96C640,107,800,149,960,154.7C1120,160,1280,128,1360,112L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container">
+        <div class="testimonial-content" data-aos="fade-up">
+            <div class="testimonial-quote">
+                <i class="fas fa-quote-left"></i>
+                <blockquote>
+                    Novfeed's innovative approach to sustainable aquaculture feeds has set a new standard in the industry. Their commitment to quality and environmental responsibility is truly commendable.
+                </blockquote>
+                <div class="testimonial-author">
+                    <div class="author-name">Dr. Sarah Johnson</div>
+                    <div class="author-title">Chair, World Aquaculture Society</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="testimonial-wave-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#ffffff" fill-opacity="1" d="M0,160L80,144C160,128,320,96,480,96C640,96,800,128,960,138.7C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <h2>Ready to Experience Award-Winning Solutions?</h2>
+            <p>Contact us to learn how our innovative products can help transform your aquaculture operations.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'enquire' %}" class="btn btn-primary btn-large">Get in Touch</a>
+                <a href="{% url 'products' %}" class="btn btn-secondary btn-large">View Products</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true,
+            offset: 50
+        });
+    });
+</script>
+<script src="{% static 'js/animations.js' %}"></script>
+
+{% endblock %}

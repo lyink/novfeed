@@ -1,0 +1,326 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novfeed - {{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Import the animations CSS file -->
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <!-- Google Fonts for Navbar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Contact Page Specific CSS -->
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    {% include 'partials/navbar.html' %}
+    
+    <!-- Hero Section with Interactive Map Background -->
+    <section class="contact-hero-section">
+        <div class="map-background"></div>
+        <div class="container position-relative">
+            <div class="hero-content text-center animate fade-in-up">
+                <h1 class="display-4 fw-bold text-white">Get In Touch</h1>
+                <div class="title-divider"></div>
+                <p class="lead text-white">We'd love to hear from you. Reach out to us for inquiries, collaborations, or support.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Information Cards -->
+    <section class="contact-info-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 animate fade-in-up">
+                    <div class="contact-card">
+                        <div class="card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Visit Us</h3>
+                        <p>Plot 123, Msasani Peninsula<br>Dar es Salaam, Tanzania</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary-blue">View on Map</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate fade-in-up delay-1">
+                    <div class="contact-card">
+                        <div class="card-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <p>+255 123 456 789<br>+255 987 654 321</p>
+                        <a href="tel:+255693438663" class="btn btn-outline-primary-blue">Call Now</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 animate fade-in-up delay-2">
+                    <div class="contact-card">
+                        <div class="card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <p>info@Novfeed.com<br>support@Novfeed.com</p>
+                        <a href="mailto:info@Novfeed.com" class="btn btn-outline-primary-blue">Send Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Form Section with Animated Background -->
+    <section class="contact-form-section py-5">
+        <div class="animated-bg">
+            <div class="floating-shape shape1"></div>
+            <div class="floating-shape shape2"></div>
+            <div class="floating-shape shape3"></div>
+        </div>
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="contact-form-container animate fade-in-up">
+                        {% if form_submitted %}
+                        <div class="form-success-message">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>{{ message }}</p>
+                            <a href="{% url 'home' %}" class="btn btn-primary-blue mt-3">Back to Home</a>
+                        </div>
+                        {% else %}
+                        <div class="row">
+                            <div class="col-lg-5 form-left-panel">
+                                <h2>Send Us a Message</h2>
+                                <p>Fill out the form and our team will get back to you within 24 hours.</p>
+                                <div class="contact-methods">
+                                    <div class="contact-method">
+                                        <div class="method-icon">
+                                            <i class="fas fa-phone-alt"></i>
+                                        </div>
+                                        <div class="method-details">
+                                            <h5>Phone</h5>
+                                            <p>+255 123 456 789</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact-method">
+                                        <div class="method-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="method-details">
+                                            <h5>Email</h5>
+                                            <p>info@Novfeed.com</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact-method">
+                                        <div class="method-icon">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="method-details">
+                                            <h5>Working Hours</h5>
+                                            <p>Mon - Fri: 8am - 5pm</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="social-links mt-4">
+                                    <h5>Connect With Us</h5>
+                                    <div class="d-flex gap-3">
+                                        <a href="https://www.facebook.com/NovFeed?_rdc=1&_rdr#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="https://x.com/Novfeed_tz?s=0" class="social-link"><i class="fab fa-twitter"></i></a>
+                                        <a href="https://www.instagram.com/novfeed_tz/" class="social-link"><i class="fab fa-instagram"></i></a>
+                                        <a href="https://www.linkedin.com/company/novfeed/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 form-right-panel">
+                                <form method="post" class="contact-form">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                                <label for="name">Your Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                                                <label for="email">Your Email</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Your Phone">
+                                                <label for="phone">Your Phone (Optional)</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-floating">
+                                                <select class="form-select" id="subject" name="subject" required>
+                                                    <option selected disabled value="">Select Subject</option>
+                                                    <option value="General Inquiry">General Inquiry</option>
+                                                    <option value="Product Information">Product Information</option>
+                                                    <option value="Partnership">Partnership</option>
+                                                    <option value="Support">Technical Support</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <label for="subject">Subject</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="message" name="message" placeholder="Your Message" style="height: 150px" required></textarea>
+                                            <label for="message">Your Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" value="" id="agreement" required>
+                                        <label class="form-check-label" for="agreement">
+                                            I agree to the processing of my personal data in accordance with the privacy policy.
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary-blue btn-lg submit-btn">
+                                        <span>Send Message</span>
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Office Locations Section -->
+    <section class="offices-section py-5 bg-light-blue">
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">Our Offices</h2>
+                <div class="title-divider"></div>
+                <p class="lead text-muted">Visit us at one of our locations</p>
+            </div>
+            
+            <div class="row">
+                {% for office in offices %}
+                <div class="col-md-4 mb-4 animate fade-in-up delay-{{ forloop.counter }}">
+                    <div class="office-card">
+                        <div class="office-header">
+                            <div class="office-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h3>{{ office.name }}</h3>
+                        </div>
+                        <div class="office-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <p>{{ office.address }}</p>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-phone-alt"></i>
+                                <p>{{ office.phone }}</p>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-envelope"></i>
+                                <p>{{ office.email }}</p>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <p>{{ office.hours }}</p>
+                            </div>
+                        </div>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary-blue mt-3">View on Map</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section with Accordion -->
+    <section class="faq-section py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5 animate fade-in-up">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <div class="title-divider"></div>
+                <p class="lead text-muted">Find answers to common questions about our products and services</p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="accordion" id="faqAccordion">
+                        {% for faq in faqs %}
+                        <div class="accordion-item animate fade-in-up delay-{{ forloop.counter }}">
+                            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ forloop.counter }}">
+                                    {{ faq.question }}
+                                </button>
+                            </h2>
+                            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    {{ faq.answer }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 animate fade-in-up">
+                <p>Can't find what you're looking for?</p>
+                <a href="#" class="btn btn-primary-blue">Contact Our Support Team</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter-section py-5 text-white">
+        <div class="container">
+            <div class="newsletter-container animate fade-in-up">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <h2>Stay Updated</h2>
+                        <p class="lead">Subscribe to our newsletter to receive the latest news, product updates, and special offers.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Your Email Address" required>
+                                <button class="btn btn-light" type="submit">Subscribe</button>
+                            </div>
+                            <div class="form-text text-white-50">We respect your privacy and won't share your information.</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    {% include 'partials/footer.html' %}
+    
+    <!-- WhatsApp Floating Button -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
+        <a href="https://wa.me/255693438663" target="_blank" class="btn btn-success rounded-circle pulse" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+            <i class="fab fa-whatsapp fa-2x"></i>
+        </a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Import the animations JavaScript file -->
+    
+    <!-- Contact Page Specific JS -->
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
+
+</body>
+</html>

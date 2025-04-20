@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search Results{% if query %} for "{{ query }}"{% endif %}{% endblock %}
+
+{% block content %}
+<!-- Search Header Banner -->
+<section class="page-header-section">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="page-title">Search Results{% if query %} for "{{ query }}"{% endif %}</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'blog:post_list' %}">Blog</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Search</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Search Results Section -->
+<section class="search-results-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Search Form -->
+                <div class="search-form-container mb-5" data-aos="fade-up">
+                    <form action="{% url 'blog:post_search' %}" method="get" class="search-form">
+                        <div class="input-group">
+                            {{ form.query }}
+                            <button type="submit" class="btn btn-primary-blue">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Search Results -->
+                <div class="search-results-container" data-aos="fade-up" data-aos-delay="100">
+                    {% if query %}
+                        <h3 class="section-title">
+                            {% with results.count as total_results %}
+                                Found {{ total_results }} result{{ total_results|pluralize }} for "{{ query }}"
+                            {% endwith %}
+                        </h3>
+                        
+                        {% if results %}
+                            <div class="search-results-list">
+                                {% for post in results %}
+                                <div class="search-result-item">
+                                    <div class="result-image">
+                                        {% if post.featured_image %}
+                                        <a href="{{ post.get_absolute_url }}">
+                                            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+                                        </a>
+                                        {% else %}
+                                        <a href="{{ post.get_absolute_url }}">
+                                            <img src="{% static 'images/blog-placeholder.jpg' %}" alt="{{ post.title }}">
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="result-content">
+                                        <h4 class="result-title">
+                                            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                                        </h4>
+                                        <div class="result-meta">
+                                            <span class="result-category"><a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a></span>
+                                            <span class="result-date"><i class="far fa-calendar-alt"></i> {{ post.publish|date:"F d, Y" }}</span>
+                                            <span class="result-author"><i class="far fa-user"></i> {{ post.author.get_full_name|default:post.author.username }}</span>
+                                        </div>
+                                        <p class="result-summary">{{ post.summary }}</p>
+                                        <a href="{{ post.get_absolute_url }}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="no-results">
+                                <div class="no-results-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h4>No results found for "{{ query }}"</h4>
+                                <p>Sorry, but nothing matched your search terms. Please try again with different keywords.</p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="search-instructions">
+                            <div class="search-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4>Search the Blog</h4>
+                            <p>Enter your search query in the form above to find posts in our blog.</p>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Return to Blog Link -->
+                <div class="return-link text-center mt-5" data-aos="fade-up" data-aos-delay="200">
+                    <a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left"></i> Back to Blog
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/animations.js' %}"></script>
+
+{% endblock %}

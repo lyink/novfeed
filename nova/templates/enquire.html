@@ -1,0 +1,960 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Main Colors */
+:root {
+  --primary-color: #0077B6;
+  --light-color: #0095ff;
+  --dark-color: #03045E;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0095ff;
+  --white: #ffffff;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-800: #343a40;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container1 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  
+}
+.container1 .cta-content h2,
+.container1 .cta-content p {
+    color: black;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col-lg-4, .col-lg-8, .col-md-6 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  .col-lg-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+}
+
+/* Hero Section */
+.enquire-hero {
+  position: relative;
+  padding: 120px 0 100px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../static/images/11.jpg');
+  background-size: cover;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-wave {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+/* Enquiry Section */
+.enquiry-section {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+/* Contact Information */
+.contact-info {
+  background-color: var(--light-color);
+  border-radius: 10px;
+  padding: 40px 30px;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contact-info h2 {
+  color: var(--dark-color);
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.contact-info > p {
+  margin-bottom: 30px;
+  color: var(--gray-800);
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.info-item i {
+  color: var(--primary-color);
+  font-size: 22px;
+  margin-top: 5px;
+  margin-right: 15px;
+}
+
+.info-item div {
+  flex: 1;
+}
+
+.info-item h3 {
+  font-size: 1.1rem;
+  margin: 0 0 5px;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.info-item p {
+  margin: 0;
+  color: var(--gray-800);
+}
+
+.social-media {
+  margin-top: 30px;
+}
+
+.social-media h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--dark-color);
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+}
+
+.social-icon i {
+  font-size: 18px;
+}
+
+/* Enquiry Form */
+.enquiry-form-container {
+  background-color: var(--white);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.enquiry-form-container h2 {
+  color: var(--dark-color);
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.enquiry-form-container > p {
+  margin-bottom: 30px;
+  color: var(--gray-800);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--gray-300);
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.1);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%230077B6' viewBox='0 0 16 16'%3E%3Cpath d='M8 9.5a.5.5 0 0 1-.354-.146l-4-4a.5.5 0 1 1 .708-.708L8 8.293l3.646-3.647a.5.5 0 0 1 .708.708l-4 4A.5.5 0 0 1 8 9.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.has-error input,
+.has-error textarea,
+.has-error select {
+  border-color: var(--danger-color);
+}
+
+.error-message {
+  color: var(--danger-color);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.alert-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+  color: var(--success-color);
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  color: var(--danger-color);
+}
+
+.alert-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  color: var(--warning-color);
+}
+
+.submit-group {
+  margin-top: 30px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: #006094;
+  border-color: #006094;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.btn-secondary:hover {
+  background-color: #0096b7;
+  border-color: #0096b7;
+}
+
+.btn-large {
+  padding: 12px 30px;
+  font-size: 18px;
+}
+
+/* Map Section */
+.map-section {
+  padding: 0;
+  background-color: var(--white);
+}
+
+.map-container {
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Call to Action Section */
+.cta-section {
+  position: relative;
+  padding: 100px 0;
+  background-color: var(--primary-color);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.cta-wave-top {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--white);
+}
+
+.cta-content p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cta-buttons {
+  margin-top: 30px;
+}
+
+/* Animation */
+[data-aos] {
+  transition-duration: 800ms;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  
+  .contact-info {
+    margin-bottom: 40px;
+  }
+  
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .enquire-hero {
+    padding: 80px 0 60px;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .enquiry-section {
+    padding: 60px 0;
+  }
+  
+  .enquiry-form-container {
+    padding: 30px 20px;
+  }
+  
+  .col-md-6 {
+    margin-bottom: 15px;
+  }
+  
+  .cta-section {
+    padding: 60px 0;
+  }
+  
+  .cta-content h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Custom form elements styling */
+::placeholder {
+  color: #aaa;
+  opacity: 1;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Animations for form elements */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus {
+  transform: translateY(-3px);
+}
+
+/* Animation for submit button */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-primary:hover:after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Additional form field styling */
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  height: 48px;
+}
+
+/* Additional enhancements */
+.enquiry-form-container {
+  position: relative;
+}
+
+.enquiry-form-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 10px 10px 0 0;
+}
+
+/* Fade effects for AOS */
+[data-aos="fade-up"] {
+  transform: translate3d(0, 30px, 0);
+}
+
+[data-aos="fade-up"].aos-animate {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Privacy policy checkbox styling */
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  margin-top: 4px;
+  margin-right: 10px;
+  width: auto;
+}
+
+.checkbox-container label {
+  font-size: 14px;
+  color: #555;
+}
+</style>
+
+<!-- Hero Section -->
+<section class="enquire-hero">
+    <div class="hero-bg"></div>
+    <div class="container1">
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="fade-up">Get In Touch</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">Have questions or interested in our products? We're here to help.</p>
+        </div>
+    </div>
+    <div class="hero-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#ffffff" fill-opacity="1" d="M0,160L80,144C160,128,320,96,480,96C640,96,800,128,960,138.7C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Enquiry Section -->
+<section class="enquiry-section">
+    <div class="container1">
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-lg-4" data-aos="fade-up">
+                <div class="contact-info">
+                    <h2>Contact Information</h2>
+                    <p>We'd love to hear from you. Contact us with any questions or inquiries.</p>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Office Address</h3>
+                            <p>123 Aquaculture Way<br>Dar es Salaam, Tanzania</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+255 123 456 789</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@Novfeed.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-media">
+                        <h3>Follow Us</h3>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/NovFeed?_rdc=1&_rdr#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://x.com/Novfeed_tz?s=0" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/company/novfeed/" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.instagram.com/novfeed_tz/" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enquiry Form -->
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="enquiry-form-container">
+                    <h2>Send Us a Message</h2>
+                    <p>Fill out the form below to enquire about our products and services.</p>
+                    
+                    <div id="form-messages">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    
+                    <form id="enquiry-form" method="post" action="{% url 'enquire' %}">
+                        {% csrf_token %}
+                        
+                        {{ form.honeypot }}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                                    <label for="{{ form.name.id_for_label }}">Name*</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="error-message">{{ form.name.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                                    <label for="{{ form.email.id_for_label }}">Email*</label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="error-message">{{ form.email.errors.0 }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                                    {{ form.phone }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="{{ form.company.id_for_label }}">Company</label>
+                                    {{ form.company }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group {% if form.product_interest.errors %}has-error{% endif %}">
+                                    <label for="{{ form.product_interest.id_for_label }}">Product of Interest</label>
+                                    {{ form.product_interest }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group {% if form.service_interest.errors %}has-error{% endif %}">
+                                    <label for="{{ form.service_interest.id_for_label }}">Service of Interest</label>
+                                    {{ form.service_interest }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-group {% if form.country.errors %}has-error{% endif %}">
+                                <label for="{{ form.country.id_for_label }}">Country</label>
+                                {{ form.country }}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group {% if form.message.errors %}has-error{% endif %}">
+                            <label for="{{ form.message.id_for_label }}">Message*</label>
+                            {{ form.message }}
+                            {% if form.message.errors %}
+                                <div class="error-message">{{ form.message.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Privacy policy checkbox removed as requested -->
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="form-group submit-group">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Google Map -->
+<section class="map-section">
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63623.42537098154!2d39.209380479650566!3d-6.792342506301605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x185c4b03a7c4b27d%3A0x295a628b01f87af3!2sDar%20es%20Salaam%2C%20Tanzania!5e0!3m2!1sen!2sus!4v1650321254782!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="cta-wave-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 180">
+            <path fill="#ffffff" fill-opacity="1" d="M0,128L80,117.3C160,107,320,85,480,96C640,107,800,149,960,154.7C1120,160,1280,128,1360,112L1440,96L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container1">
+        <div class="cta-content" data-aos="fade-up">
+            <h2>Ready to Transform Your Operation?</h2>
+            <p>Join hundreds of satisfied customers who have improved their productivity with our solutions.</p>
+            <div class="cta-buttons">
+                <a href="{% url 'products' %}" class="btn btn-secondary btn-large">Explore Products</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Initialize AOS animation library
+document.addEventListener('DOMContentLoaded', function() {
+    AOS.init({
+      duration: 800,
+      easing: 'ease',
+      once: true,
+      offset: 50
+    });
+  
+    // Form validation and handling
+    const enquiryForm = document.getElementById('enquiry-form');
+    
+    if (enquiryForm) {
+      // Add floating label effect
+      const formInputs = enquiryForm.querySelectorAll('input, textarea, select');
+      
+      formInputs.forEach(input => {
+        // Add appropriate classes based on input state
+        if (input.value.trim() !== '') {
+          input.classList.add('has-value');
+        }
+        
+        input.addEventListener('focus', () => {
+          input.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', () => {
+          input.parentElement.classList.remove('focused');
+          if (input.value.trim() !== '') {
+            input.classList.add('has-value');
+          } else {
+            input.classList.remove('has-value');
+          }
+          
+          // Simple validation on blur
+          validateField(input);
+        });
+      });
+      
+      // Form submission handling
+      enquiryForm.addEventListener('submit', function(e) {
+        let isValid = true;
+        
+        // Validate all fields before submitting
+        formInputs.forEach(input => {
+          if (!validateField(input)) {
+            isValid = false;
+          }
+        });
+        
+        if (!isValid) {
+          e.preventDefault();
+          
+          // Scroll to first error
+          const firstError = enquiryForm.querySelector('.has-error');
+          if (firstError) {
+            firstError.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+          }
+        }
+      });
+    }
+    
+    // Field validation function
+    function validateField(field) {
+      const fieldName = field.getAttribute('name');
+      const fieldValue = field.value.trim();
+      const fieldType = field.getAttribute('type');
+      const formGroup = field.closest('.form-group');
+      let errorMessage = '';
+      
+      // Remove any existing error messages
+      const existingError = formGroup.querySelector('.error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+      
+      formGroup.classList.remove('has-error');
+      
+      // Required fields validation
+      if (field.hasAttribute('required') && fieldValue === '') {
+        errorMessage = 'This field is required';
+        formGroup.classList.add('has-error');
+      }
+      
+      // Email validation
+      if (fieldType === 'email' && fieldValue !== '') {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(fieldValue)) {
+          errorMessage = 'Please enter a valid email address';
+          formGroup.classList.add('has-error');
+        }
+      }
+      
+      // Phone validation (simple)
+      if (fieldName === 'phone' && fieldValue !== '') {
+        const phonePattern = /^[+]?[\s./0-9]*[(]?[0-9]{1,4}[)]?[-\s./0-9]*$/;
+        if (!phonePattern.test(fieldValue)) {
+          errorMessage = 'Please enter a valid phone number';
+          formGroup.classList.add('has-error');
+        }
+      }
+      
+      // Add error message if needed
+      if (errorMessage) {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.textContent = errorMessage;
+        formGroup.appendChild(errorElement);
+        return false;
+      }
+      
+      return true;
+    }
+    
+    // Add smooth scrolling for all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    // Add animation to success message if present
+    const successMessage = document.querySelector('.alert-success');
+    if (successMessage) {
+      successMessage.style.animation = 'fadeInDown 0.5s ease forwards';
+      
+      // Auto hide success message after 5 seconds
+      setTimeout(() => {
+        successMessage.style.animation = 'fadeOutUp 0.5s ease forwards';
+        setTimeout(() => {
+          successMessage.remove();
+        }, 500);
+      }, 5000);
+    }
+    {% endblock %}
+
+    {% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="{% static 'js/k.js' %}"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
+
+    {% endblock %}
